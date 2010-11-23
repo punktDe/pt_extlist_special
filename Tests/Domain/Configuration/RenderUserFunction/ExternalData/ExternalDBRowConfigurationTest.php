@@ -33,19 +33,24 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	protected $settings;
 	protected $rowData;
 	
+	/**
+	 * @var Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration
+	 */
+	protected $testConfigObject;
 	
 	public function setUp() {
 		
 		$this->rowData = array('key1' => 'value1', 'key2' => 'value2');
 		$this->settings = array('dsn' => 'mysql://test:test@testServer',
 						  'query' => array (
-								'fields' => 'field',
+								'select' => 'field',
 								'from' => 'table',
 								'where' => 'otherField=###key1###',
 								'groupBy' => '###key2###',
 								'orderBy' => 'field2',
 							)
-						);		
+						);
+		$this->testConfigObject = new Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration($this->settings, $this->rowData);
 	}	
 
 	/** @test */
@@ -57,51 +62,34 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 		$this->assertEquals('value2', $settings['groupBy']);
 	}
 	
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
-	 */
-	protected function init() {
-		$this->setRequiredValue('dsn', 'No DSN Configuration set for ExternalDBRow Render User Function! 1290506596');
-
-		$this->setRequiredValue('select', 'No select part given for ExternalDBRow Render User Function! 1290507801');
-		$this->setValueIfExistsAndNotNothing('from');
-		$this->setValueIfExistsAndNotNothing('where');
-		$this->setValueIfExistsAndNotNothing('groupBy');
-		$this->setValueIfExistsAndNotNothing('orderBy');
-	}
-	
+	/** @test */
 	public function getDSN() {
-		return $this->dsn;	
+		$this->assertEquals($this->testConfigObject->getDSN(), 'mysql://test:test@testServer');
 	}
 	
+	/** @test */
 	public function getSelect() {
-		return $this->select;
+		$this->assertEquals($this->testConfigObject->getSelect(), 'field');
 	}
 	
+	/** @test */
 	public function getFrom() {
-		return $this->from;
+		$this->assertEquals($this->testConfigObject->getFrom(), 'table');
 	}
 	
+	/** @test */
 	public function getWhere() {
-		return $this->where;
+		$this->assertEquals($this->testConfigObject->getWhere(), 'otherField=value1');
 	}
 	
+	/** @test */
 	public function getOrderBy() {
-		return $this->orderBy;
+		$this->assertEquals($this->testConfigObject->getOrderBy(), 'field2');
 	}
 	
+	/** @test */
 	public function getGroupBy() {
-		return $this->groupBy;
-	}
-	
-	public function getRenderObj() {
-		return $this->renderObj();
-	}
-	
-	public function getRenderPartial() {
-		return $this->renderPartial;
+		$this->assertEquals($this->testConfigObject->getGroupBy(), 'value2');
 	}
 }
 ?>
