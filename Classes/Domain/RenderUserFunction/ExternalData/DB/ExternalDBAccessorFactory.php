@@ -70,7 +70,9 @@ class Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAc
 	protected static function createDataObject(Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration) {
 		
 		try {
-			$pdo = new PDO($externalDBRowConfiguration->getDSN());	
+			$pdo = new PDO($externalDBRowConfiguration->getDSN(),
+							$externalDBRowConfiguration->getUser(), 
+							$externalDBRowConfiguration->getPassword());	
 		} catch (Exception $e) {
 			throw new Exception('Unable to establish databse connection: ' . $e->getMessage() . ' 1290585032');
 		}

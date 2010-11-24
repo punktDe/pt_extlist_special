@@ -59,9 +59,11 @@ class Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAc
 
 		try {
 			/* @var $statement PDOStatement */
-		    $statement = $this->connection->prepare($query);
+			$query = $this->buildQuery($externalDBRowConfiguration);
+
+		    $statement = $this->dbObject->prepare($query);
 		    $statement->execute();
-		    $result = $statement->fetchAll();
+		    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 		} catch(Exception $e) {
 			throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query . 
 			    ' 1290586188 - Error message from PDO: ' . $e->getMessage() . 
@@ -83,10 +85,10 @@ class Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAc
 		$query = '';
 		$query .= 'SELECT ' . $externalDBRowConfiguration->getSelect();
 		$query .=  $externalDBRowConfiguration->getFrom() ? ' FROM ' . $externalDBRowConfiguration->getFrom() : '';
-		$query .=  $externalDBRowConfiguration->getFrom() ? ' WHERE ' . $externalDBRowConfiguration->getWhere() : '';
-		$query .=  $externalDBRowConfiguration->getFrom() ? ' GROUPBY ' . $externalDBRowConfiguration->getGroupBy() : '';
-		$query .=  $externalDBRowConfiguration->getFrom() ? ' ORDERBY ' . $externalDBRowConfiguration->getOrderBy() : '';
-		$query .=  $externalDBRowConfiguration->getFrom() ? ' LIMIT ' . $externalDBRowConfiguration->getOrderBy() : '';
+		$query .=  $externalDBRowConfiguration->getWhere() ? ' WHERE ' . $externalDBRowConfiguration->getWhere() : '';
+		$query .=  $externalDBRowConfiguration->getGroupBy() ? ' GROUPBY ' . $externalDBRowConfiguration->getGroupBy() : '';
+		$query .=  $externalDBRowConfiguration->getOrderBy() ? ' ORDERBY ' . $externalDBRowConfiguration->getOrderBy() : '';
+		$query .=  $externalDBRowConfiguration->getLimit() ? ' LIMIT ' . $externalDBRowConfiguration->getLimit() : '';
 		
 		return $query;
 	}

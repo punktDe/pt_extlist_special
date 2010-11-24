@@ -43,6 +43,18 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	/**	
 	 * @var string
 	 */
+	protected $user;
+	
+	
+	/**	
+	 * @var string
+	 */
+	protected $password;
+	
+	
+	/**	
+	 * @var string
+	 */
 	protected $select;
 	
 	
@@ -130,28 +142,36 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	 */
 	protected function init() {
 		$this->setRequiredValue('dsn', 'No DSN Configuration set for ExternalDBRow Render User Function! 1290506596');
-
+		$this->setValueIfExistsAndNotNothing('user');
+		$this->setValueIfExistsAndNotNothing('password');
+		
 		$this->setRequiredValue('select', 'No select part given for ExternalDBRow Render User Function! 1290507801');
 		$this->setValueIfExistsAndNotNothing('from');
 		$this->setValueIfExistsAndNotNothing('where');
 		$this->setValueIfExistsAndNotNothing('groupBy');
 		$this->setValueIfExistsAndNotNothing('orderBy');
 		
-		
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
-		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
 			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}
 	
-		if(array_key_exists('renderObj', $this->settings)) {
+		if(array_key_exists('renderObj', $this->settings) && $this->settings['renderObj']) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
         }
 	}
 	
 	public function getDSN() {
 		return $this->dsn;	
+	}
+	
+	public function getUser() {
+		return $this->user;
+	}
+	
+	public function getPassword() {
+		return $this->password;
 	}
 	
 	public function getSelect() {
@@ -172,14 +192,6 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	
 	public function getGroupBy() {
 		return $this->groupBy;
-	}
-	
-	public function getRenderObj() {
-		return $this->renderObj();
-	}
-	
-	public function getRenderPartial() {
-		return $this->renderPartial;
 	}
 	
 	

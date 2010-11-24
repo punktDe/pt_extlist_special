@@ -40,28 +40,15 @@ class Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_RenderUserFu
 	 * @return string renderes result roe
 	 */
 	public static function fetchExternalRow(array $params) {
-		
 		$internalFieldData = $params['values'];
 		$settings = $params['conf'];
 		
 		$externalDBRowConfiguration = new Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration($settings, $internalFieldData);
 		
 		$dbObejct = Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAccessorFactory::getInstance($externalDBRowConfiguration);
-		$result = $dbObejct->fetchRowByConfiguration($externalDBRowConfiguration);
+		$rowData = $dbObejct->fetchRowByConfiguration($externalDBRowConfiguration);
 
-		return $this->renderExternalData($result);
-	}
-	
-	
-	
-	/**
-	 * Render the rowData as given by configuration
-	 * 
-	 * @param Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration
-	 * @param array $rowData
-	 */
-	protected function renderExternalData(Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration, $rowData) {
-		return Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($rowData, $externalDBRowConfiguration);
+		return Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($rowData[0], $externalDBRowConfiguration);
 	}
 }
 ?>

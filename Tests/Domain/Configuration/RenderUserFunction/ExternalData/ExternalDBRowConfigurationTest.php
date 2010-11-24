@@ -42,6 +42,8 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 		
 		$this->rowData = array('key1' => 'value1', 'key2' => 'value2');
 		$this->settings = array('dsn' => 'mysql://test:test@testServer',
+						  'user' => 'user', 
+						  'password' => 'password',
 						  'query' => array (
 								'select' => 'field',
 								'from' => 'table',
@@ -90,6 +92,16 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	/** @test */
 	public function getGroupBy() {
 		$this->assertEquals($this->testConfigObject->getGroupBy(), 'value2');
+	}
+	
+	/** @test */
+	public function getUser() {
+		$this->assertEquals($this->testConfigObject->getUser(), 'user');
+	}
+	
+	/** @test */
+	public function getPassword() {
+		$this->assertEquals($this->testConfigObject->getPassword(), 'password');
 	}
 }
 ?>

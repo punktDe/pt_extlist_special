@@ -1,22 +1,17 @@
-plugin.tx_ptextlistspecial.settings {
-}
+####################################################
+# Base Configuration for pt_extlist 
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
 
-plugin.tx_ptextlistspecial._CSS_DEFAULT_STYLE (
-	input.f3-form-error {
-		background-color:#FF9F9F;
-		border: 1px #FF0000 solid;
-	}
+###
+# Prototypes
+###
 
-	.tx-ptextlistspecial-pi1 table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
+# Include Prototypes
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/BaseConfig/Prototype/RenderUserFunctions.txt">
 
-	.tx-ptextlistspecial-pi1 table th {
-		font-weight:bold;
-	}
-
-	.tx-ptextlistspecial-pi1 table td {
-		vertical-align:top;
-	}
-)
+# Import to settings
+plugin.tx_ptextlist.settings.prototype.renderUserFunctions.getExternalDBRow < plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow

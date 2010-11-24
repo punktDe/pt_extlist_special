@@ -6,11 +6,13 @@
 # @subpackage prototype
 ####################################################
 
-plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow = Tx_PtExtlist_Special_Domain_RenderUserFunction_ExternalData_DB_RenderUserFunction->fetchExternalRow
+plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow = Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_RenderUserFunction->fetchExternalRow
 plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow {
 	
-	# DSN to any relational database with existant PDO driver
-	dsn = 
+	# DSN to any relational database with existant PDO driver. PDO Syntax
+	dsn = mysql:host=localhost,port=3306,dbname=typo3
+	user = 
+	password = 
 	
 	query {
 		select = 

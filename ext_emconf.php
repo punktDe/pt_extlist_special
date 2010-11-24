@@ -13,7 +13,7 @@
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Extlist special',
 	'description' => 'Special methods and classes built upon pt_extlist.',
-	'category' => 'plugin',
+	'category' => 'misc',
 	'author' => 'Daniel Lienert',
 	'author_email' => 'lienert@punkt.de',
 	'author_company' => 'punkt.de',
