@@ -31,7 +31,8 @@
  * @subpackage Configuration\RenderUserFunction\ExternalData
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration  extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration 
+																										   implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
 	/**	
 	 * @var string
@@ -70,7 +71,7 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	
 	
 	/**	
-	 * @var string
+	 * @var array
 	 */
 	protected $renderObj;
 	
@@ -78,8 +79,14 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	/**	
 	 * @var string
 	 */
-	protected $renderPartial;
+	protected $renderTemplate;
 	
+	
+	
+	/**
+	 * @var array
+	 */
+	protected $renderUserFunctions;
 	
 	
 	/**
@@ -129,6 +136,18 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 		$this->setValueIfExistsAndNotNothing('where');
 		$this->setValueIfExistsAndNotNothing('groupBy');
 		$this->setValueIfExistsAndNotNothing('orderBy');
+		
+		
+		$this->setValueIfExistsAndNotNothing('renderTemplate');
+		
+		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+			asort($this->settings['renderUserFunctions']);
+			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
+		}
+	
+		if(array_key_exists('renderObj', $this->settings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        }
 	}
 	
 	public function getDSN() {
@@ -162,5 +181,47 @@ class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_E
 	public function getRenderPartial() {
 		return $this->renderPartial;
 	}
+	
+	
+	/**
+	 * Limit is hardcoded to 1 for the externla DB row userfunction 
+	 */
+	public function getLimit() {
+		return 1;
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_RenderConfigInterface::getRenderObj()
+	 */
+	public function getRenderObj() {
+		return $this->renderObj;
+	}
+	
+	
+	
+	/**
+	 * Returns a configuration array for user functions
+	 * 
+	 * @return array userFunctions Configuration
+	 */
+	public function getRenderUserFunctions() {
+		return $this->renderUserFunctions;
+	}
+	
+	
+	
+	/**
+	 * Returns a path to a fluid template file
+	 * 
+	 * @returns string template
+	 */
+	public function getRenderTemplate() {
+		return $this->renderTemplate;
+	}
+	
+	
 }
 ?>

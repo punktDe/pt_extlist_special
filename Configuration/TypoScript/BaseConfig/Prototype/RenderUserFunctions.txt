@@ -18,7 +18,6 @@ plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow {
 		where =
 		groupBy = 
 		orderBy = 
-		# limit = 1 // this is hardcoded to 1
 	}
 	
 	renderObj = 
