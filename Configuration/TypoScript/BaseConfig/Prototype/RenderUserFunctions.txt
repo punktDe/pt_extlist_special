@@ -10,7 +10,7 @@ plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow = Tx_PtExtlis
 plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow {
 	
 	# DSN to any relational database with existant PDO driver. PDO Syntax
-	dsn = mysql:host=localhost,port=3306,dbname=typo3
+	dsn = mysql:host=localhost;port=3306;dbname=typo3
 	user = 
 	password = 
 	
