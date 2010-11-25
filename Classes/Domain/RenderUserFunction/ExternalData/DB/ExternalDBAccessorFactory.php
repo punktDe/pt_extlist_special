@@ -25,59 +25,59 @@
 
 /**
  * Class implements a cell of a row of list data
- * 
+ *
  * @package Domain
  * @subpackage RenderUserFunction\ExternalData\DB
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAccessorFactory {
-	
+
 	/**
-	 * Array of db connections identified by dsn 
+	 * Array of db connections identified by dsn
 	 * @var array
 	 */
 	protected static $instances = array();
-	
-	
+
+
 	/**
 	 * Build database object
-	 * 
+	 *
 	 * @param Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration
 	 * @return Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAccessor
 	 */
 	public static function getInstance(Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration) {
-		
+
 		$instanceIdentifier = md5($externalDBRowConfiguration->getDSN());
-		
+
 		if(!self::$instances[$instanceIdentifier]) {
 			self::$instances[$instanceIdentifier] = new Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAccessor();
 			self::$instances[$instanceIdentifier]->injectDbObject(self::createDataObject($externalDBRowConfiguration));
 		}
-		
+
 		return self::$instances[$instanceIdentifier];
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Create Database Object
-	 * 
+	 *
 	 * @param Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration
 	 * @return PDO
 	 * @throws Exception
 	 */
 	protected static function createDataObject(Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfiguration $externalDBRowConfiguration) {
-		
+
 		try {
 			$pdo = new PDO($externalDBRowConfiguration->getDSN(),
-							$externalDBRowConfiguration->getUser(), 
-							$externalDBRowConfiguration->getPassword());	
+							$externalDBRowConfiguration->getUser(),
+							$externalDBRowConfiguration->getPassword());
 		} catch (Exception $e) {
 			throw new Exception('Unable to establish databse connection: ' . $e->getMessage() . ' 1290585032');
 		}
-						
+
 		return $pdo;
-	}	
+	}
 }
 ?>
