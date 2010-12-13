@@ -33,8 +33,8 @@
  * @package Domain
  * @subpackage Renderer\StructuredList
  * @author Daniel Lienert <lienert@punkt.de>
-
  */
+
 class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_LTRStructuredRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
 	
 	/**

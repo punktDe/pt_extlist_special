@@ -12,3 +12,9 @@
 # DemoList for userFunction ExternalDBAccessor
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/Demolist/DemoList_UserFunction_ExternalDBAccessor.txt">
+
+
+#
+# DemoList for Renderer LTRStructure
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/Demolist/DemoList_Renderer_LTRStructuredRenderer.txt">

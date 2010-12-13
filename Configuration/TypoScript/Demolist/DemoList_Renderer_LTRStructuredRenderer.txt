@@ -9,67 +9,73 @@
 
 plugin.tx_ptextlist.settings {
 
-	listConfig.DemoList_UserFunction_ExternalDBAccessor < plugin.tx_ptextlist.prototype.listConfig.default
-	listConfig.DemoList_UserFunction_ExternalDBAccessor {
+	listConfig.DemoList_Renderer_LTRStructuredRenderer < plugin.tx_ptextlist.prototype.listConfig.default
+	listConfig.DemoList_Renderer_LTRStructuredRenderer {
 
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
-			tables (
-				static_countries
+			
+			baseFromClause (
+				Country
 			)
 		}
 
 		fields {
-			name_local {
-				table = static_countries
-				field = cn_short_local
+			Continent {
+				table = Country
+				field = Continent
 			}
 			
-			uid {
-				table = static_countries
-				field = uid
+			Region {
+				table = Country
+				field = Region
+			}
+			
+			Country {
+				table = Country
+				field = Name
 			}
 		}
 
+		default.sortingColumn = ContinentColumn
+		
 		columns {
 			10 {
-				columnIdentifier = nameColumn
-				fieldIdentifier = name_local
-				label = Name Local
+				columnIdentifier = ContinentColumn
+				fieldIdentifier = Continent
+				label = Continent
+				
+				sorting = Continent, Region, Country
 			}
 			
 			20 {
-				columnIdentifier = cityColumn
-				label = City (Fetched by external Query)
-				fieldIdentifier = uid
-				
-				renderUserFunctions {
-					10 < plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow
-					10 {
-						dsn = mysql:host=localhost;port=3306;dbname=t3develop
-						user = 
-						password = 
-						
-						query {
-							select = cn_capital
-							from = static_countries
-							where = uid=###uid###
-							groupBy = 
-							orderBy = 
-						}
-						
-						renderObj = TEXT
-						renderObj {
-							cObject = TEXT
-							cObject {
-								field = cn_capital
-								crop = 10 | ...
-								ifEmpty = [Nicht angegeben]
-							}
-						}
-					}
+				columnIdentifier = RegionColumn
+				fieldIdentifier = Region
+				label = Region
+				isSortable = 0
+			}
+			
+			30 {
+				columnIdentifier = CountryColumn
+				fieldIdentifier = Country
+				label = Country
+				isSortable = 0
+			}
+		}
+		
+		pager.itemsPerPage = 50 
+		
+		
+		rendererChain {
+			rendererConfigs {
+				110 {
+					rendererClassName = Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_LTRStructuredRenderer
+					structuredColumnCount = 2
 				}
 			}
 		}
+		
+		bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/LTRStructuredListBody.html
+		
 	}
 }
