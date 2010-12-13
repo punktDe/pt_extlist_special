@@ -12,6 +12,7 @@
 
 # Include Prototypes
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/BaseConfig/Prototype/RenderUserFunctions.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/BaseConfig/Prototype/Renderer.txt">
 
 # Import to settings
 plugin.tx_ptextlist.settings.prototype.renderUserFunctions.getExternalDBRow < plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow

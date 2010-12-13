@@ -23,8 +23,20 @@ Tx_PtExtlist_Domain_Model_List_Cell		cell		A cell which holds the value and addi
 	<tr class="{listRow.specialValues.oddEvenClass} {listRow.specialValues.mainRowClass}">
 		
 		<f:for each="{listRow}" key="columnIdentifier" as="cell">
-			<f:if condition="{cell.specialValues.rowSpan}">
-				<td rowSpan="{cell.specialValues.rowSpan}" class="tx-ptextlist-field-{columnIdentifier} {cell.CSSClass}">{cell}</td>
+			<f:if condition="{cell.specialValues.colSpan}">
+				<f:then>
+					<td colSpan="{cell.specialValues.colSpan}" class="tx-ptextlist-field-{columnIdentifier} {cell.CSSClass}">
+						<div class="tx-ptextlist-groupHeaderTitle">
+							{cell} 
+							<f:if condition="{cell.specialValues.showRowCount}">
+								<span class="tx-ptextlist-field-groupHeader-rowCount">({cell.specialValues.rowCount} Items)</span>
+							</f:if>
+						</div>
+					</td>
+				</f:then>
+				<f:else>
+					<td class="tx-ptextlist-field-{columnIdentifier} {cell.CSSClass}">{cell}</td>
+				</f:else>
 			</f:if>
 		</f:for>
 	</tr>

@@ -9,8 +9,8 @@
 
 plugin.tx_ptextlist.settings {
 
-	listConfig.DemoList_Renderer_LTRStructuredRenderer < plugin.tx_ptextlist.prototype.listConfig.default
-	listConfig.DemoList_Renderer_LTRStructuredRenderer {
+	listConfig.DemoList_Renderer_ColumnGroupRenderer < plugin.tx_ptextlist.prototype.listConfig.default
+	listConfig.DemoList_Renderer_ColumnGroupRenderer {
 
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
@@ -44,22 +44,20 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = ContinentColumn
 				fieldIdentifier = Continent
 				label = Continent
-				
-				sorting = Continent, Region, Country
 			}
 			
 			20 {
 				columnIdentifier = RegionColumn
 				fieldIdentifier = Region
 				label = Region
-				isSortable = 0
+				isSortable = 1
 			}
 			
 			30 {
 				columnIdentifier = CountryColumn
 				fieldIdentifier = Country
 				label = Country
-				isSortable = 0
+				isSortable = 1
 			}
 		}
 		
@@ -68,14 +66,30 @@ plugin.tx_ptextlist.settings {
 		
 		rendererChain {
 			rendererConfigs {
-				110 < plugin.tx_ptextlist.prototype.renderer.ltrStructured
+				110 < plugin.tx_ptextlist.prototype.renderer.columnGroup
 				110 {
-					structuredColumnCount = 2
+					columnIdentifier = ContinentColumn
+					hideVerticalColumn = 
+					showRowCount = 1
 				}
 			}
 		}
 		
-		bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/LTRStructuredListBody.html
-		
+		bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/ColumnGroupListBody.html	
 	}
 }
+
+
+plugin.tx_ptextlist_columnGroup._CSS_DEFAULT_STYLE (
+	
+	.tx-ptextlist-groupHeaderRow {
+		border-bottom: 1px solid black !important;		
+	}
+	
+	.tx-ptextlist-groupHeaderTitle {
+		font-weight:bold;
+		padding-top:5px;
+	}
+	
+	
+)

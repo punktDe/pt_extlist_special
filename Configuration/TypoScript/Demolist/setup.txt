@@ -18,3 +18,9 @@
 # DemoList for Renderer LTRStructure
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/Demolist/DemoList_Renderer_LTRStructuredRenderer.txt">
+
+
+#
+# DemoList for Renderer ColumnGroup
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/Demolist/DemoList_Renderer_ColumnGroupRenderer.txt">
