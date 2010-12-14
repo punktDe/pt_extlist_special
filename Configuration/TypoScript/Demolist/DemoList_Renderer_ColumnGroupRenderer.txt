@@ -15,9 +15,6 @@ plugin.tx_ptextlist.settings {
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 			
-			baseFromClause (
-				Country
-			)
 		}
 
 		fields {
@@ -75,21 +72,6 @@ plugin.tx_ptextlist.settings {
 			}
 		}
 		
-		bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/ColumnGroupListBody.html	
+		bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/ColumnGroupListBody.html
 	}
 }
-
-
-plugin.tx_ptextlist_columnGroup._CSS_DEFAULT_STYLE (
-	
-	.tx-ptextlist-groupHeaderRow {
-		border-bottom: 1px solid black !important;		
-	}
-	
-	.tx-ptextlist-groupHeaderTitle {
-		font-weight:bold;
-		padding-top:5px;
-	}
-	
-	
-)
