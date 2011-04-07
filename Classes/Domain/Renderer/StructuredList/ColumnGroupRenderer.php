@@ -56,6 +56,7 @@ class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_ColumnGroupRenderer ext
 		$currentGroup = NULL;
 		
 		$colCount = $listData->getItemByIndex(0)->count();
+		$rowIndex = 1;
 		
 		foreach($listData as $rowID => $row) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 			
@@ -75,6 +76,9 @@ class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_ColumnGroupRenderer ext
 				$headerRowMarker = $outputListData->count() -1;
 				$currentGroupCount = 1;
 			}
+			
+			$oddEvenClass = $rowIndex++ % 2 == 0 ? 'odd' : 'even';
+			$row->addSpecialValue('oddEvenClass', $oddEvenClass);
 			
 			$outputListData->addRow($row);
 			

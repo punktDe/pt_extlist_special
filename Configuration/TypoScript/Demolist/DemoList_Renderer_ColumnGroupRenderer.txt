@@ -7,6 +7,8 @@
 # @subpackage pt_extlist
 ####################################################
 
+# This demo uses the mysql world database http://dev.mysql.com/doc/world-setup/en/world-setup.html
+
 plugin.tx_ptextlist.settings {
 
 	listConfig.DemoList_Renderer_ColumnGroupRenderer < plugin.tx_ptextlist.prototype.listConfig.default
