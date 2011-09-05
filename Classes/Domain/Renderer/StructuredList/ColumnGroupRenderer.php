@@ -35,7 +35,20 @@
  */
 
 class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_ColumnGroupRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-	
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		$groupColumn = $this->rendererConfiguration->getSettings('columnIdentifier');
+		$hideVerticalColumn = $this->rendererConfiguration->getSettings('hideVerticalColumn') == '1' ? true : false;
+
+		if($hideVerticalColumn) $listHeader->deleteItem($groupColumn);
+
+		return $listHeader;
+	}
+
 	/**
 	 * Renders list data, add group header to a specifi column
 	 *
@@ -50,12 +63,16 @@ class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_ColumnGroupRenderer ext
 		
 		$groupColumn = $this->rendererConfiguration->getSettings('columnIdentifier');
 		$showRowCount = $this->rendererConfiguration->getSettings('showRowCount');
-		
+		$hideVerticalColumn = $this->rendererConfiguration->getSettings('hideVerticalColumn') == '1' ? true : false;
+
 		$headerRowMarker = NULL;
 		$currentGroupCount = NULL;
 		$currentGroup = NULL;
 		
 		$colCount = $listData->getItemByIndex(0)->count();
+		if($hideVerticalColumn) $colCount--;
+
+
 		$rowIndex = 1;
 		
 		foreach($listData as $rowID => $row) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
@@ -79,7 +96,9 @@ class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_ColumnGroupRenderer ext
 			
 			$oddEvenClass = $rowIndex++ % 2 == 0 ? 'odd' : 'even';
 			$row->addSpecialValue('oddEvenClass', $oddEvenClass);
-			
+
+			if($hideVerticalColumn)	$row->deleteItem($groupColumn);
+
 			$outputListData->addRow($row);
 			
 			if($showRowCount) {
