@@ -25,3 +25,27 @@ plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow {
 	renderObj = 
 	renderPartial =
 }
+
+
+/*
+* Get a value from an array field
+* fieldIdentifier = array[x][y] = value
+* namSpace = x.y
+* will return the value
+*/
+plugin.tx_ptextlist.prototype.renderUserFunctions.getValueByNameSpace = Tx_PtExtlistSpecial_Domain_RenderUserFunction_ArrayHelper->getValueByNameSpace
+plugin.tx_ptextlist.prototype.renderUserFunctions.getValueByNameSpace {
+	nameSpace =
+}
+
+
+plugin.tx_ptextlist.prototype.renderUserFunctions.treePath = Tx_PtExtlistSpecial_Domain_RenderUserFunction_Tree->Path
+plugin.tx_ptextlist.prototype.renderUserFunctions.treePath {
+	nodeIdField =
+	repository =
+	nameSpace =
+	pathGlue =
+	startIndex =
+	length =
+}
+
