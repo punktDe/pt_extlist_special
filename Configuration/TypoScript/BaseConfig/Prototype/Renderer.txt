@@ -1,5 +1,5 @@
 ####################################################
-# Definition of list prototypes for use in listconfiguration 
+# Definition of list prototypes for use in listconfiguration
 #
 # @author Daniel Lienert <lienert@punkt.de>
 # @package pt_extlist_special
@@ -10,14 +10,13 @@ plugin.tx_ptextlist.prototype.renderer {
 
 	ltrStructured {
 		rendererClassName = Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_LTRStructuredRenderer
-		structuredColumnCount = 
+		structuredColumnCount =
 	}
-	
+
 	columnGroup {
 		rendererClassName = Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_ColumnGroupRenderer
-		columnIdentifier =  
+		columnIdentifier =
 		showRowCount = 1
-		hideVerticalColumn = 
+		hideVerticalColumn =
 	}
-	
 }

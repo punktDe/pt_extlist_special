@@ -24,7 +24,7 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_short_local
 			}
-			
+
 			uid {
 				table = static_countries
 				field = uid
@@ -37,27 +37,27 @@ plugin.tx_ptextlist.settings {
 				fieldIdentifier = name_local
 				label = Name Local
 			}
-			
+
 			20 {
 				columnIdentifier = cityColumn
 				label = City (Fetched by external Query)
 				fieldIdentifier = uid
-				
+
 				renderUserFunctions {
 					10 < plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow
 					10 {
 						dsn = mysql:host=localhost;port=3306;dbname=t3develop
-						user = 
-						password = 
-						
+						user =
+						password =
+
 						query {
 							select = cn_capital
 							from = static_countries
 							where = uid=###uid###
-							groupBy = 
-							orderBy = 
+							groupBy =
+							orderBy =
 						}
-						
+
 						renderObj = TEXT
 						renderObj {
 							cObject = TEXT
