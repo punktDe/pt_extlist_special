@@ -75,7 +75,8 @@ class Tx_PtExtlistSpecial_Domain_DataBackend_ReportDataBackend extends Tx_PtExtl
 	 * Initializes required active filters from given configuration
 	 */
 	protected function initRequiredActiveFilters() {
-		if (!empty($this->backendConfiguration->getDataBackendSettings('requiredActiveFilters'))) {
+		$requiredActiveFilters = $this->backendConfiguration->getDataBackendSettings('requiredActiveFilters');
+		if (!empty($requiredActiveFilters)) {
 			$this->initRequiredActiveFilters = explode(',', $this->backendConfiguration->getDataBackendSettings('requiredActiveFilters'));
 		}
 	}
