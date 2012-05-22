@@ -24,3 +24,9 @@
 # DemoList for Renderer ColumnGroup
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/Demolist/DemoList_Renderer_ColumnGroupRenderer.txt">
+
+
+#
+# DemoList for Renderer RowToColumn
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist_special/Configuration/TypoScript/Demolist/DemoList_Renderer_RowToColumnRenderer.txt">

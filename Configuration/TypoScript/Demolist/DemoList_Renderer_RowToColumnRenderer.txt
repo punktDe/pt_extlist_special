@@ -1,0 +1,127 @@
+####################################################
+# This template configures a demolist for use
+# with pt_extlist
+#
+# @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+# This demo uses the mysql world database http://dev.mysql.com/doc/world-setup/en/world-setup.html
+
+plugin.tx_ptextlist.settings {
+
+	listConfig.DemoList_Renderer_RowToColumnGroupRenderer < plugin.tx_ptextlist.prototype.listConfig.default
+	listConfig.DemoList_Renderer_RowToColumnGroupRenderer {
+
+		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+			backendConfig {
+
+				tables (
+					static_countries,
+					static_territories st_continent,
+					static_territories st_subcontinent
+				)
+
+				baseFromClause (
+					static_countries
+					LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+					LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr)
+				)
+
+				baseWhereClause (
+					st_continent.tr_name_en <> ''
+					AND st_subcontinent.tr_name_en <> ''
+				)
+			}
+
+			default.sortingColumn = subcontinent
+
+			fields {
+
+				continent {
+					table = st_continent
+					field = tr_name_en
+					isSortable = 1
+				}
+
+				subcontinent {
+					table = st_subcontinent
+					field = tr_name_en
+				}
+
+				countryname {
+					table = static_countries
+					field = cn_official_name_en
+				}
+
+				capital {
+					table = static_countries
+					field = cn_capital
+				}
+
+				iso2 {
+					table = static_countries
+					field = cn_iso_2
+					isSortable = 0
+				}
+			}
+
+			columns {
+
+				10 {
+					label = Subcontinent
+					columnIdentifier = subcontinent
+					fieldIdentifier = subcontinent
+				}
+
+				20 {
+					label = Country
+					columnIdentifier = country
+					fieldIdentifier = countryname
+				}
+
+				30 {
+					label = Capital
+					columnIdentifier = capital
+					fieldIdentifier = capital
+				}
+
+				40 {
+					label = ISO
+					columnIdentifier = iso2
+					fieldIdentifier = iso2
+				}
+			}
+		
+		pager.itemsPerPage = 100
+		
+
+		rendererChain {
+			rendererConfigs {
+				110 < plugin.tx_ptextlist.prototype.renderer.rowToColumnGroup
+				110 {
+					yDimensionColumn = subcontinent
+					xDimensionGroupColumn = country
+				}
+			}
+		}
+
+		// bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/ColumnGroupListBody.html
+	}
+}
+
+
+plugin.tx_ptextlist_columnGroup._CSS_DEFAULT_STYLE (
+	
+	.tx-ptextlist-groupHeaderRow {
+		border-bottom: 1px solid black !important;		
+	}
+	
+	.tx-ptextlist-groupHeaderTitle {
+		font-weight:bold;
+		padding-top:5px;
+	}
+	
+	
+)
