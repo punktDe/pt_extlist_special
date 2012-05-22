@@ -53,7 +53,7 @@ class Tx_PtExtlistSpecial_Domain_DataBackend_ReportDataBackend extends Tx_PtExtl
 		parent::initBackend();
 		$this->initRequiredActiveFilters();
 	}
-	
+
 
 
 	/**
