@@ -10,6 +10,7 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 */
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Extlist special Base');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', 'Extlist special Exports');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', 'Extlist special Demos');
 
 //$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_pi1'] = 'pi_flexform';
