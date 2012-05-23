@@ -19,5 +19,12 @@ plugin.tx_ptextlist.prototype.renderer {
 		showRowCount = 1
 		hideVerticalColumn = 
 	}
-	
+
+	rowToColumnGroup {
+		rendererClassName = Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_RowToColumnGroupRenderer
+
+		yDimensionColumn =
+       	xDimensionGroupColumn =
+	}
+
 }
