@@ -50,8 +50,8 @@ class Tx_PtExtlistSpecial_Domain_DataBackend_ReportDataBackend extends Tx_PtExtl
 	 * We implement template method for initializing backend
 	 */
 	protected function initBackend() {
-		parent::initBackend();
 		$this->initRequiredActiveFilters();
+		parent::initBackend();
 	}
 
 
@@ -75,9 +75,9 @@ class Tx_PtExtlistSpecial_Domain_DataBackend_ReportDataBackend extends Tx_PtExtl
 	 * Initializes required active filters from given configuration
 	 */
 	protected function initRequiredActiveFilters() {
-		$requiredActiveFilters = $this->backendConfiguration->getDataBackendSettings('requiredActiveFilters');
+		$requiredActiveFilters = $this->backendConfiguration->getSettings('requiredActiveFilters');
 		if (!empty($requiredActiveFilters)) {
-			$this->requiredActiveFilters = explode(',', $this->backendConfiguration->getDataBackendSettings('requiredActiveFilters'));
+			$this->requiredActiveFilters = explode(',', $requiredActiveFilters);
 		}
 	}
 
@@ -91,7 +91,7 @@ class Tx_PtExtlistSpecial_Domain_DataBackend_ReportDataBackend extends Tx_PtExtl
 	protected function requiredActiveFiltersAreActive() {
 		foreach($this->requiredActiveFilters as $requiredActiveFilter) {
 			$filter = $this->getFilterboxCollection()->getFilterByFullFiltername($requiredActiveFilter);
-			if ($filter->isActive() !== TRUE) {
+			if (!$filter->isActive()) {
 				return FALSE;
 			}
 		}
