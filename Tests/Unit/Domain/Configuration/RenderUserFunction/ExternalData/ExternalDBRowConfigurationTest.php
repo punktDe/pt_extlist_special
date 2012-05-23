@@ -28,7 +28,7 @@
  * @subpackage Configuration\RenderUserFunction\ExternalData
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlistSpecial_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfigurationTestCase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlistSpecial_Tests_Unit_Domain_Configuration_RenderUserFunction_ExternalData_ExternalDBRowConfigurationTestCase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $settings;
 	protected $rowData;

@@ -30,7 +30,7 @@
  * @subpackage Domain\RenderUserFunction\ExternalData\DB
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlistSpecial_Tests_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAccessorTestCase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlistSpecial_Tests_Unit_Domain_RenderUserFunction_ExternalData_DB_ExternalDBAccessorTestCase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $settings;
 	protected $rowData;

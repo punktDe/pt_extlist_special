@@ -26,17 +26,17 @@
 
 /**
  * Type: Post-list Renderer
- * 
+ *
  * Custom renderer for a structured list
- * Adds information to the fields to show a structured table with rowSpans 
- * 
+ * Adds information to the fields to show a structured table with rowSpans
+ *
  * @package Domain
  * @subpackage Renderer\StructuredList
  * @author Daniel Lienert <lienert@punkt.de>
  */
 
 class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_LTRStructuredRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-	
+
 	/**
 	 * Renders list data
 	 *
@@ -44,46 +44,46 @@ class Tx_PtExtlistSpecial_Domain_Renderer_StructuredList_LTRStructuredRenderer e
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		
+
 		$structuredColumnCount = $this->rendererConfiguration->getSettings('structuredColumnCount');
-		
+
 		$childCountMap = array();
 		$firstRowMarker = array();
 		$mainRowCount = 0;
-		
+
 		foreach($listData as $rowID => $row) {
-			
-			$cellIdent = '';			
+
+			$cellIdent = '';
 			$columnIndex = 1;
-			
+
 			foreach($row as $cellId => $cell) {
-				
+
 				// row styling
 				if($cellIdent == '' && $childCountMap[$cell->getValue()] == 0) {
 					$listData->getItemById($rowID)->addSpecialValue('mainRowClass', 'mainRow');
 					$mainRowCount++;
 				}
-				
+
 				$rowClass = $mainRowCount % 2 == 0 ? 'odd' : 'even';
 				$listData->getItemById($rowID)->addSpecialValue('oddEvenClass', $rowClass);
-				
-				
+
+
 				$cellIdent .= $cell->getValue();
-				
+
 				$childCountMap[$cellIdent]++;
-				
+
 				if(!array_key_exists($cellIdent, $firstRowMarker)) {
-					$firstRowMarker[$cellIdent] = $rowID;	
+					$firstRowMarker[$cellIdent] = $rowID;
 				}
-				
+
 				if($columnIndex <= $structuredColumnCount) {
 					$listData->getItemById($firstRowMarker[$cellIdent])->getItemById($cellId)->addSpecialvalue('rowSpan',$childCountMap[$cellIdent]);
 				} else {
 					$listData->getItemById($rowID)->getItemById($cellId)->addSpecialvalue('rowSpan',1);
 				}
-				
+
 				$columnIndex++;
-			}			
+			}
 		}
 
 		return $listData;
