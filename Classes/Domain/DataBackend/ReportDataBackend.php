@@ -91,8 +91,7 @@ class Tx_PtExtlistSpecial_Domain_DataBackend_ReportDataBackend extends Tx_PtExtl
 	protected function requiredActiveFiltersAreActive() {
 		foreach($this->requiredActiveFilters as $requiredActiveFilter) {
 			$filter = $this->getFilterboxCollection()->getFilterByFullFiltername($requiredActiveFilter);
-			$value = $filter->getValue();
-			if (empty($value)) {
+			if (!$filter->isActive()) {
 				return FALSE;
 			}
 		}
