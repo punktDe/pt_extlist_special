@@ -16,3 +16,6 @@
 
 # Import to settings
 plugin.tx_ptextlist.settings.prototype.renderUserFunctions.getExternalDBRow < plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow
+
+# Dependency Injections
+config.tx_extbase.objects.Tx_PtExtlistSpecial_Domain_TablePreprocessor_ColumnDefinitionBuilderInterface.className = Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlColumnDefinitionBuilder
