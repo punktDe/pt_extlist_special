@@ -33,7 +33,7 @@
  * @package pt_extlist_special
  * @subpackage Domain\TablePreprocessor
  */
-class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor implements Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessorInterface {
+class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessor implements Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessorInterface {
 
 	/**
 	 * @var t3lib_DB
@@ -83,9 +83,10 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor implements 
 	/**
 	 * @var string
 	 */
-	protected $insertQueryTemplate = "
-		INSERT INTO `%s` (
-			`%s`
+	protected $insertRowQueryTemplate = "
+		INSERT INTO %s VALUES (
+			NULL,
+			%s
 		);";
 
 	/**
@@ -162,7 +163,14 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor implements 
 	 * @return void
 	 */
 	protected function fillTemporaryTable() {
-
+		foreach ($this->extlistContext->getListData() as $row) { /** @var Tx_PtExtlist_Domain_Model_List_Row $row */
+			$insertRow = array();
+			foreach ($row as $cell) { /** @var Tx_PtExtlist_Domain_Model_List_Cell $cell */
+				$insertRow[] = $cell->getValue();
+			}
+			$insertRowQuery = sprintf($this->insertRowQueryTemplate, $this->temporaryTableName, implode(',', $this->connection->fullQuoteArray($insertRow, $this->temporaryTableName)));
+			$this->sqlQuery($insertRowQuery);
+		}
 	}
 
 	/**
