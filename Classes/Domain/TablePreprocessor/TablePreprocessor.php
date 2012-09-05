@@ -48,12 +48,22 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	/**
 	 * @var string
 	 */
-	protected $listIdentifier = '';
+	protected $columnDefinitions;
 
 	/**
 	 * @var string
 	 */
 	protected $tableName = '';
+
+	/**
+	 * @var string
+	 */
+	protected $temporaryTableName = '';
+
+	/**
+	 * @var string
+	 */
+	protected $backupTableName = '';
 
 	/**
 	 * @var string
@@ -73,7 +83,7 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	/**
 	 * @var string
 	 */
-	protected $removeBackupTableQueryTemplate = "DROP TABLE IF EXISTS %s";
+	protected $dropBackupTableQueryTemplate = "DROP TABLE IF EXISTS %s";
 
 	/**
 	 * @param Tx_PtExtlistSpecial_Domain_TablePreprocessor_ColumnDefinitionBuilderInterface $columnDefinitionBuilder
@@ -100,8 +110,9 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	 * @return void
 	 */
 	public function execute($listIdentifier, $tableName) {
-		$this->listIdentifier = $listIdentifier;
 		$this->tableName = $tableName;
+		$this->columnDefinitions = $this->columnDefinitionBuilder->getColumnDefinitions($listIdentifier);
+		$this->setTableNames();
 		$this->createTable();
 		$this->createTemporaryTable();
 		$this->fillTemporaryTable();
@@ -111,13 +122,19 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 
 	/**
 	 * @return void
+	 */
+	protected function setTableNames() {
+		$this->temporaryTableName = 'tmp_' . $this->tableName;
+		$this->backupTableName = 'bck_' . $this->tableName;
+	}
+
+	/**
+	 * @return void
 	 * @throws Exception
 	 */
 	protected function createTable() {
-		$columnDefinitions = $this->columnDefinitionBuilder->getColumnDefinitions($this->listIdentifier);
-		$tableCreationQuery = sprintf($this->tableCreationQueryTemplate, $this->tableName, $columnDefinitions);
+		$tableCreationQuery = sprintf($this->tableCreationQueryTemplate, $this->tableName, $this->columnDefinitions);
 		$this->sqlQuery($tableCreationQuery);
-		die("ARGH!!!");
 	}
 
 	/**
@@ -125,6 +142,8 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	 * @throws Exception
 	 */
 	protected function createTemporaryTable() {
+		$tableCreationQuery = sprintf($this->tableCreationQueryTemplate, $this->temporaryTableName, $this->columnDefinitions);
+		$this->sqlQuery($tableCreationQuery);
 	}
 
 	/**
@@ -140,8 +159,7 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	 * @throws Exception
 	 */
 	protected function switchTables() {
-		$switchTablesQuery = "RENAME TABLE %s TO %s, %s TO %s;";
-		// $this->sqlQuery(sprintf($switchTablesQuery, $this->tableName, $this->backupTableName, $this->temporaryTableName, $this->tableName));
+		$this->sqlQuery(sprintf($this->switchTablesQueryTemplate, $this->tableName, $this->backupTableName, $this->temporaryTableName, $this->tableName));
 	}
 
 	/**
@@ -149,7 +167,8 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	 * @throws Exception
 	 */
 	protected function dropBackupTable() {
-
+		$dropTableQuery = sprintf($this->dropBackupTableQueryTemplate, $this->backupTableName);
+		$this->sqlQuery($dropTableQuery);
 	}
 
 	/**
@@ -159,9 +178,8 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	protected function sqlQuery($query) {
 		$result = $this->connection->sql_query($query);
 		if ($result === FALSE) {
-			throw new Exception('SQL query failed. 1346685973');
+			throw new Exception('SQL query failed! 1346685973');
 		}
-
 	}
 
 }
