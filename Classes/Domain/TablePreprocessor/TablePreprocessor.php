@@ -130,7 +130,6 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 
 	/**
 	 * @return void
-	 * @throws Exception
 	 */
 	protected function createTable() {
 		$tableCreationQuery = sprintf($this->tableCreationQueryTemplate, $this->tableName, $this->columnDefinitions);
@@ -139,7 +138,6 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 
 	/**
 	 * @return void
-	 * @throws Exception
 	 */
 	protected function createTemporaryTable() {
 		$tableCreationQuery = sprintf($this->tableCreationQueryTemplate, $this->temporaryTableName, $this->columnDefinitions);
@@ -148,7 +146,6 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 
 	/**
 	 * @return void
-	 * @throws Exception
 	 */
 	protected function fillTemporaryTable() {
 
@@ -156,7 +153,6 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 
 	/**
 	 * @return void
-	 * @throws Exception
 	 */
 	protected function switchTables() {
 		$this->sqlQuery(sprintf($this->switchTablesQueryTemplate, $this->tableName, $this->backupTableName, $this->temporaryTableName, $this->tableName));
@@ -164,7 +160,6 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 
 	/**
 	 * @return void
-	 * @throws Exception
 	 */
 	protected function dropBackupTable() {
 		$dropTableQuery = sprintf($this->dropBackupTableQueryTemplate, $this->backupTableName);
