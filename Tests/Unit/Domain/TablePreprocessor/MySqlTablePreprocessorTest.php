@@ -28,19 +28,19 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor
+ * Test case for class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessor
  *
  * @package pt_dppp_auth
  * @subpackage Tests\Unit\Domain\TablePreprocessor
  */
-class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessorTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessorTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
 	protected $proxyClass;
 
 	protected $proxy;
 
 	public function setUp() {
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor');
+		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessor');
 		$this->proxy = new $this->proxyClass();
 	}
 

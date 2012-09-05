@@ -33,7 +33,7 @@
  * @package pt_extlist_special
  * @subpackage Domain\TablePreprocessor
  */
-class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
+class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor implements Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessorInterface {
 
 	/**
 	 * @var t3lib_DB
@@ -44,6 +44,11 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	 * @var Tx_PtExtlistSpecial_Domain_TablePreprocessor_ColumnDefinitionBuilderInterface
 	 */
 	protected $columnDefinitionBuilder;
+
+	/**
+	 * @var Tx_PtExtlist_ExtlistContext_ExtlistContext
+	 */
+	protected $extlistContext;
 
 	/**
 	 * @var string
@@ -74,6 +79,14 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 			%s
 			PRIMARY KEY (`uid`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+
+	/**
+	 * @var string
+	 */
+	protected $insertQueryTemplate = "
+		INSERT INTO `%s` (
+			`%s`
+		);";
 
 	/**
 	 * @var string
@@ -111,6 +124,7 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor {
 	 */
 	public function execute($listIdentifier, $tableName) {
 		$this->tableName = $tableName;
+		$this->extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier($listIdentifier);
 		$this->columnDefinitions = $this->columnDefinitionBuilder->getColumnDefinitions($listIdentifier);
 		$this->setTableNames();
 		$this->createTable();

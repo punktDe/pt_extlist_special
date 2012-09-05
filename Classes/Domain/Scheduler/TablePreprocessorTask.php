@@ -41,7 +41,7 @@ class Tx_PtExtlistSpecial_Domain_Scheduler_TablePreprocessorTask extends tx_sche
 	protected $objectManager;
 
 	/**
-	 * @var Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor
+	 * @var Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessorInterface
 	 */
 	protected $tablePreprocessor;
 
@@ -72,7 +72,7 @@ class Tx_PtExtlistSpecial_Domain_Scheduler_TablePreprocessorTask extends tx_sche
 	 */
 	public function initializeObject() {
 		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
-		$this->tablePreprocessor = $this->objectManager->get('Tx_PtExtlistSpecial_Domain_TablePreprocessor_TablePreprocessor');
+		$this->tablePreprocessor = $this->objectManager->get('Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessor');
 	}
 
 	/**
