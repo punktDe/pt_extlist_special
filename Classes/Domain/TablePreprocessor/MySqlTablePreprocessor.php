@@ -163,7 +163,7 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessor implem
 	 * @return void
 	 */
 	protected function fillTemporaryTable() {
-		foreach ($this->extlistContext->getListData() as $row) { /** @var Tx_PtExtlist_Domain_Model_List_Row $row */
+		foreach ($this->extlistContext->getRenderedListData() as $row) { /** @var Tx_PtExtlist_Domain_Model_List_Row $row */
 			$insertRow = array();
 			foreach ($row as $cell) { /** @var Tx_PtExtlist_Domain_Model_List_Cell $cell */
 				$insertRow[] = $cell->getValue();
