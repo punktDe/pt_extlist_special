@@ -71,7 +71,7 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlColumnDefinitionBuilder 
 		$columnDefinitions = '';
 		$sqlSettings = $this->collectSqlSettings();
 		foreach ($sqlSettings as $columnSqlSettings) {
-			$columnDefinitions[] = implode(' ', $columnSqlSettings);
+			$columnDefinitions[] = $columnSqlSettings['columnName'] . ' ' . $columnSqlSettings['type'] . ' ' . $columnSqlSettings['constraints'];
 		}
 		$columnDefinitions = implode(', ', $columnDefinitions) . ',';
 		return $columnDefinitions;

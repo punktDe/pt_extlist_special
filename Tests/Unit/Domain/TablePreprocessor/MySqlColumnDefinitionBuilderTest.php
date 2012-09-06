@@ -109,6 +109,36 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlColumnDefinitionBuilderT
 	/**
 	 * @test
 	 */
+	public function buildColumnDefinitionsReturnsValidColumnDefinitionIfNoValidOrderOfDefinitionsIsGiven() {
+		$sqlSettings = array(
+			'foo' => array(
+				"columnName" => "title",
+				"constraints" => "DEFAULT '' NOT NULL",
+				"type" => "varchar(255)",
+			),
+			'bar' => array(
+				"constraints" => "DEFAULT '' NOT NULL",
+				"type" => "int(11)",
+				"columnName" => "date",
+			),
+		);
+
+		$expected = "title varchar(255) DEFAULT '' NOT NULL, date int(11) DEFAULT '' NOT NULL,";
+
+		$proxyMock = $this->getMockBuilder($this->proxyClass)
+				->setMethods(array('collectSqlSettings'))
+				->getMock();
+		$proxyMock->expects($this->once())
+			->method('collectSqlSettings')
+			->will($this->returnValue($sqlSettings));
+
+		$actual = $proxyMock->_call('buildColumnDefinitions');
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * @test
+	 */
 	public function collectSqlSettingsReturnsArrayOfSqlSettings() {
 		$expected = $columnSqlSettings = array(
 			array(
