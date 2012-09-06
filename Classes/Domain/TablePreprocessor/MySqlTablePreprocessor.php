@@ -195,7 +195,7 @@ class Tx_PtExtlistSpecial_Domain_TablePreprocessor_MySqlTablePreprocessor implem
 	protected function sqlQuery($query) {
 		$result = $this->connection->sql_query($query);
 		if ($result === FALSE) {
-			throw new Exception('SQL query failed! 1346685973');
+			throw new Exception('SQL query failed! '. $query . ' 1346685973');
 		}
 	}
 
