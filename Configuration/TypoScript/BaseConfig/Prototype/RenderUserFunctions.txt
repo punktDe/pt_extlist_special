@@ -1,5 +1,5 @@
 ####################################################
-# Definition of list prototypes for use in listconfiguration 
+# Definition of list prototypes for use in listconfiguration
 #
 # @author Daniel Lienert <lienert@punkt.de>
 # @package pt_extlist_special
@@ -8,20 +8,44 @@
 
 plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow = Tx_PtExtlistSpecial_Domain_RenderUserFunction_ExternalData_DB_RenderUserFunction->fetchExternalRow
 plugin.tx_ptextlist.prototype.renderUserFunctions.getExternalDBRow {
-	
+
 	# DSN to any relational database with existant PDO driver. PDO Syntax
 	dsn = mysql:host=localhost;port=3306;dbname=typo3
-	user = 
-	password = 
-	
+	user =
+	password =
+
 	query {
-		select = 
-		from = 
+		select =
+		from =
 		where =
-		groupBy = 
-		orderBy = 
+		groupBy =
+		orderBy =
 	}
-	
-	renderObj = 
+
+	renderObj =
 	renderPartial =
 }
+
+
+/*
+* Get a value from an array field
+* fieldIdentifier = array[x][y] = value
+* namSpace = x.y
+* will return the value
+*/
+plugin.tx_ptextlist.prototype.renderUserFunctions.getValueByNameSpace = Tx_PtExtlistSpecial_Domain_RenderUserFunction_ArrayHelper->getValueByNameSpace
+plugin.tx_ptextlist.prototype.renderUserFunctions.getValueByNameSpace {
+	nameSpace =
+}
+
+
+plugin.tx_ptextlist.prototype.renderUserFunctions.treePath = Tx_PtExtlistSpecial_Domain_RenderUserFunction_Tree->Path
+plugin.tx_ptextlist.prototype.renderUserFunctions.treePath {
+	nodeIdField =
+	repository =
+	nameSpace =
+	pathGlue =
+	startIndex =
+	length =
+}
+
