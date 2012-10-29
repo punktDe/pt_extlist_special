@@ -166,7 +166,7 @@ class Tx_PtExtlistSpecial_View_Export_ExcelHtmlListView extends Tx_PtExtlist_Vie
 				$values[] = $this->stripTags ? strip_tags($listCell->getValue()) : $listCell->getValue();
 			}
 
-			$tableBody .= '<tr><td>'. implode('</td><td>', $values) .'</td></tr>';
+			$tableBody .= '<tr><td>'. implode('</td><td>', $values) ."</td></tr>\n";
 
 		}
 
