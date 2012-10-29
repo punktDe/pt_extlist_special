@@ -88,6 +88,7 @@ class Tx_PtExtlistSpecial_View_Export_ExcelHtmlListView extends Tx_PtExtlist_Vie
 
 		$this->renderHeader();
 		$this->renderBody();
+		$this->renderAggregates();
 
 		$this->saveOutputAndExit();
 	}
@@ -170,6 +171,30 @@ class Tx_PtExtlistSpecial_View_Export_ExcelHtmlListView extends Tx_PtExtlist_Vie
 		}
 
 		$this->templateVariableContainer->add('tableBodyLines', $tableBody);
+	}
+
+
+
+	/**
+	 * Render the aggregate rows
+	 */
+	protected function renderAggregates() {
+		$aggregateRows = '';
+
+		// Rows
+		foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+
+			$values = array();
+
+			foreach ($aggregateRow as &$cell) { /* @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
+				$values[] = $this->stripTags ? strip_tags($cell->getValue()) : $cell->getValue();
+			}
+
+			$aggregateRows .= '<tr><td class=aggregateCell>'. implode('</td><td class=aggregateCell>', $values) .'</td></tr>';
+
+		}
+
+		$this->templateVariableContainer->add('tableAggregateLines', $aggregateRows);
 	}
 
 

@@ -15,6 +15,11 @@
 				background-color: #FC0;
 			}
 
+			.aggregateCell {
+				font-weight: bold;
+				border-top: .5pt solid #000;
+			}
+
 			td {
 				border: .5pt solid #DDD;
 			}
@@ -27,6 +32,7 @@
 		<table>
 			<f:format.raw>{tableHeaderLine}</f:format.raw>
 			<f:format.raw>{tableBodyLines}</f:format.raw>
+			<f:format.raw>{tableAggregateLines}</f:format.raw>
 		</table>
 	</body>
 </html>
